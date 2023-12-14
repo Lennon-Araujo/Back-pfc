@@ -1,6 +1,6 @@
 -- CreateTable
 CREATE TABLE "Category" (
-    "id" SERIAL NOT NULL,
+    "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
@@ -10,9 +10,9 @@ CREATE TABLE "Category" (
 
 -- CreateTable
 CREATE TABLE "Transactions" (
-    "id" SERIAL NOT NULL,
+    "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
-    "categoryId" INTEGER,
+    "categoryId" TEXT,
     "when" TIMESTAMP(3) NOT NULL,
     "cost" DOUBLE PRECISION NOT NULL,
     "shared" BOOLEAN NOT NULL DEFAULT false,
