@@ -9,3 +9,23 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Category {
+  id           Int            @id @default(autoincrement())
+  name         String
+  created_at   DateTime       @default(now())
+  updated_at   DateTime       @updatedAt
+  transactions Transactions[]
+}
+
+model Transactions {
+  id         Int       @id @default(autoincrement())
+  name       String
+  category   Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  categoryId Int?
+  when       DateTime
+  cost       Float
+  shared     Boolean   @default(false)
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+}
