@@ -1,26 +1,22 @@
-import express, { Request, Response } from 'express'
-import { z } from 'zod'
-import { prisma } from './lib/prisma'
+import 'express-async-errors'
+import express, { NextFunction, Request, Response } from 'express'
 import { router } from './shared/http/routes'
+import { AppError } from './shared/errors/AppError'
 
 const app = express()
 app.use(express.json())
 app.use(router)
 
-app.post('/category', async (req: Request, res: Response) => {
-  const registerBodySchema = z.object({
-    name: z.string(),
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+  if (err instanceof AppError) {
+    return res.status(err.statusCode).json({ message: err.message })
+  }
+
+  return res.status(500).json({
+    status: 'error',
+    message: `Internal Server Error - ${err.message}`,
   })
-
-  const { name } = registerBodySchema.parse(req.body)
-
-  await prisma.category.create({
-    data: {
-      name,
-    },
-  })
-
-  return res.status(201).send()
 })
 
 export { app }
