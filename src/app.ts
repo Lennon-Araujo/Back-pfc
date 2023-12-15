@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express'
 import { z } from 'zod'
 import { prisma } from './lib/prisma'
-import { router } from './http/routes'
+import { router } from './shared/http/routes'
 
 const app = express()
 app.use(express.json())

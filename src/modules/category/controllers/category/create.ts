@@ -1,5 +1,5 @@
-import { CategoriesRepository } from '@/repositories/prisma/category/categories-repository'
-import { CreateCategoryUseCase } from '@/use-cases/create-category'
+import { CategoriesRepository } from '@/modules/category/repositories/prisma/category/categories-repository'
+import { CreateCategoryUseCase } from '@/modules/category/use-cases/create-category'
 import { Request, Response } from 'express'
 
 export class CategoriesController {
