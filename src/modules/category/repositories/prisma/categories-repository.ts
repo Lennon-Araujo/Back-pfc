@@ -26,6 +26,9 @@ export class CategoriesRepository implements ICategoriesRepository {
       where: {
         id,
       },
+      include: {
+        transactions: true,
+      },
     })
 
     return category
