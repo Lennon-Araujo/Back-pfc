@@ -3,7 +3,7 @@ import { Request, Response } from 'express'
 import { z } from 'zod'
 import { CategoriesRepository } from '../repositories/prisma/categories-repository'
 
-export class CategoriesController {
+export class CreateCategoriesController {
   async handle(req: Request, res: Response): Promise<Response> {
     const registerBodySchema = z.object({
       name: z.string(),

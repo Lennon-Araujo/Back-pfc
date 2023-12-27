@@ -3,7 +3,7 @@ import { TransactionsRepository } from '../repositories/prisma/transactions-repo
 import { CreateTransactionUseCase } from '../use-cases/create-transaction'
 import { Request, Response } from 'express'
 
-export class TransactionsController {
+export class CreateTransactionsController {
   async handle(req: Request, res: Response): Promise<Response> {
     const registerBodySchema = z.object({
       name: z.string(),
