@@ -10,6 +10,17 @@ export class CategoriesRepository implements ICategoriesRepository {
     })
   }
 
+  async getAll() {
+    return prisma.category.findMany({
+      orderBy: {
+        created_at: 'asc',
+      },
+      include: {
+        transactions: true,
+      },
+    })
+  }
+
   async findById(id: string) {
     const category = await prisma.category.findUnique({
       where: {
