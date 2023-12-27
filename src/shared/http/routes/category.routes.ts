@@ -1,4 +1,4 @@
-import { CategoriesController } from '@/modules/category/controllers/category/create'
+import { CategoriesController } from '@/modules/category/controllers/create'
 import { Router } from 'express'
 
 export const categoriesRoutes = Router()

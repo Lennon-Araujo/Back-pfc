@@ -19,4 +19,6 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   })
 })
 
+// TODO adicionar handler de erros das validações do ZOD
+
 export { app }
