@@ -13,21 +13,4 @@ export class GetByIdCategoryUseCase {
 
     return category
   }
-
-  // update(id: number, updateCategoryDto: UpdateCategoryDto) {
-  //   return this.prisma.category.update({
-  //     where: {
-  //       id,
-  //     },
-  //     data: updateCategoryDto,
-  //   });
-  // }
-
-  // remove(id: number) {
-  //   return this.prisma.category.delete({
-  //     where: {
-  //       id,
-  //     },
-  //   });
-  // }
 }

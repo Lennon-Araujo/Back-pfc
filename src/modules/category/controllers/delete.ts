@@ -1,9 +1,9 @@
 import { Request, Response } from 'express'
 import { CategoriesRepository } from '../repositories/prisma/categories-repository'
 import { z } from 'zod'
-import { GetByIdCategoryUseCase } from '../use-cases/get-by-id'
+import { DeleteCategoryUseCase } from '../use-cases/delete'
 
-export class GetByIdCategoryController {
+export class DeleteCategoryController {
   async handle(req: Request, res: Response): Promise<Response> {
     const registerBodySchema = z.object({
       id: z.string(),
@@ -11,12 +11,10 @@ export class GetByIdCategoryController {
 
     const { id } = registerBodySchema.parse(req.params)
     const categoryRepository = new CategoriesRepository()
-    const getByIdCategoryUseCase = new GetByIdCategoryUseCase(
-      categoryRepository,
-    )
+    const deleteCategoryUseCase = new DeleteCategoryUseCase(categoryRepository)
 
-    const category = await getByIdCategoryUseCase.execute(id)
+    await deleteCategoryUseCase.execute(id)
 
-    return res.json(category)
+    return res.status(204).send()
   }
 }

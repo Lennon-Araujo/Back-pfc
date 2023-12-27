@@ -5,4 +5,5 @@ export interface ICategoriesRepository {
   getAll(): Promise<Category[]>
   findById(id: string): Promise<Category | null>
   findByName(name: string): Promise<Category | null>
+  delete(id: string): Promise<Category | null>
 }
