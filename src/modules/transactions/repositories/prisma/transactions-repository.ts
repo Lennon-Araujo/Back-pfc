@@ -20,7 +20,7 @@ export class TransactionsRepository implements ITransactionsRepository {
     })
   }
 
-  async findOne(id: string) {
+  async findById(id: string) {
     return await prisma.transactions.findUniqueOrThrow({
       where: {
         id,
@@ -40,7 +40,7 @@ export class TransactionsRepository implements ITransactionsRepository {
     })
   }
 
-  async remove(id: string) {
+  async delete(id: string) {
     return await prisma.transactions.delete({
       where: {
         id,
