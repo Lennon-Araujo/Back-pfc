@@ -1,7 +1,7 @@
-import { CreateCategoryUseCase } from '@/modules/category/use-cases/create-category'
 import { Request, Response } from 'express'
 import { z } from 'zod'
 import { CategoriesRepository } from '../repositories/prisma/categories-repository'
+import { CreateCategoryUseCase } from '../use-cases/create'
 
 export class CreateCategoriesController {
   async handle(req: Request, res: Response): Promise<Response> {
