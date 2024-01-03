@@ -1,8 +1,11 @@
 import { CreateTransactionsController } from '@/modules/transactions/controllers/create'
+import { GetAllTransactionsController } from '@/modules/transactions/controllers/get-all'
 import { Router } from 'express'
 
 export const transactionsRoutes = Router()
 
-const transactionsController = new CreateTransactionsController()
+const createTransactionsController = new CreateTransactionsController()
+const getAllTransactionsController = new GetAllTransactionsController()
 
-transactionsRoutes.post('/', transactionsController.handle)
+transactionsRoutes.get('/', getAllTransactionsController.handle)
+transactionsRoutes.post('/', createTransactionsController.handle)
