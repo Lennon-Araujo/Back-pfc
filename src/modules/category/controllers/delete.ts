@@ -5,11 +5,11 @@ import { DeleteCategoryUseCase } from '../use-cases/delete'
 
 export class DeleteCategoryController {
   async handle(req: Request, res: Response): Promise<Response> {
-    const registerBodySchema = z.object({
+    const registerParamsSchema = z.object({
       id: z.string(),
     })
 
-    const { id } = registerBodySchema.parse(req.params)
+    const { id } = registerParamsSchema.parse(req.params)
     const categoryRepository = new CategoriesRepository()
     const deleteCategoryUseCase = new DeleteCategoryUseCase(categoryRepository)
 

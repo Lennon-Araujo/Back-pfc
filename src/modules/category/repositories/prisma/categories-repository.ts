@@ -44,6 +44,17 @@ export class CategoriesRepository implements ICategoriesRepository {
     return category
   }
 
+  async update(id: string, name: string) {
+    await prisma.category.update({
+      where: {
+        id,
+      },
+      data: {
+        name,
+      },
+    })
+  }
+
   async delete(id: string) {
     return prisma.category.delete({
       where: {

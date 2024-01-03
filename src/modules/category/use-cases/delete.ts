@@ -14,13 +14,4 @@ export class DeleteCategoryUseCase {
     const deletedCategory = await this.categoryRepository.delete(id)
     return deletedCategory
   }
-
-  // update(id: number, updateCategoryDto: UpdateCategoryDto) {
-  //   return this.prisma.category.update({
-  //     where: {
-  //       id,
-  //     },
-  //     data: updateCategoryDto,
-  //   });
-  // }
 }
