@@ -3,8 +3,10 @@ import express, { NextFunction, Request, Response } from 'express'
 import { router } from './shared/http/routes'
 import { AppError } from './shared/errors/AppError'
 import { ZodError } from 'zod'
+import cors from 'cors'
 
 const app = express()
+app.use(cors())
 app.use(express.json())
 app.use(router)
 
