@@ -11,21 +11,41 @@ datasource db {
 }
 
 model Category {
-  id           String         @id @default(uuid())
-  name         String         @unique
-  created_at   DateTime       @default(now())
-  updated_at   DateTime       @updatedAt
-  transactions Transactions[]
+  id           String        @id @default(uuid())
+  name         String        @unique
+  created_at   DateTime      @default(now())
+  updated_at   DateTime      @updatedAt
+  transactions Transaction[]
 }
 
-model Transactions {
-  id         String    @id @default(uuid())
+model Transaction {
+  id         String                @id @default(uuid())
   name       String
-  category   Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  category   Category?             @relation(fields: [categoryId], references: [id], onDelete: SetNull)
   categoryId String?
   when       DateTime
   cost       Float
-  shared     Boolean   @default(false)
-  created_at DateTime  @default(now())
-  updated_at DateTime  @updatedAt
+  shared     Boolean               @default(false)
+  created_at DateTime              @default(now())
+  updated_at DateTime              @updatedAt
+  users      TransactionsOnUsers[]
+}
+
+model User {
+  id           String                @id @default(uuid())
+  name         String
+  password     String
+  email        String                @unique
+  created_at   DateTime              @default(now())
+  updated_at   DateTime              @updatedAt
+  transactions TransactionsOnUsers[]
+}
+
+model TransactionsOnUsers {
+  transactions   Transaction @relation(fields: [transactionsId], references: [id])
+  transactionsId String
+  users          User        @relation(fields: [usersId], references: [id])
+  usersId        String
+
+  @@id([usersId, transactionsId])
 }
