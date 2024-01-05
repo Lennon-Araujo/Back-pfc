@@ -3,7 +3,7 @@ import { CreateTransactionDto } from '../dtos/create-transaction-dto'
 import { ITransactionsRepository } from '../repositories/itransactions-repository'
 import { AppError } from '@/shared/errors/AppError'
 
-export class CreateTransactionUseCase {
+export class CreateTransactionsUseCase {
   constructor(
     private transactionsRepository: ITransactionsRepository,
     private categoriesRepository: ICategoriesRepository,

@@ -1,11 +1,11 @@
 import { prisma } from '@/lib/prisma'
-import { ITransactionsRepository } from '../itransactions-repository'
 import { CreateTransactionDto } from '../../dtos/create-transaction-dto'
 import { UpdateTransactionDto } from '../../dtos/update-transaction-dto'
+import { ITransactionsRepository } from '../itransactions-repository'
 
 export class TransactionsRepository implements ITransactionsRepository {
   async create(data: CreateTransactionDto) {
-    const transaction = await prisma.transactions.create({
+    const transaction = await prisma.transaction.create({
       data,
     })
 
@@ -13,7 +13,7 @@ export class TransactionsRepository implements ITransactionsRepository {
   }
 
   async findAll() {
-    return await prisma.transactions.findMany({
+    return await prisma.transaction.findMany({
       orderBy: {
         created_at: 'asc',
       },
@@ -21,7 +21,7 @@ export class TransactionsRepository implements ITransactionsRepository {
   }
 
   async findById(id: string) {
-    return await prisma.transactions.findUniqueOrThrow({
+    return await prisma.transaction.findUniqueOrThrow({
       where: {
         id,
       },
@@ -32,7 +32,7 @@ export class TransactionsRepository implements ITransactionsRepository {
   }
 
   async update(id: string, updateTransactionDto: UpdateTransactionDto) {
-    return await prisma.transactions.update({
+    return await prisma.transaction.update({
       where: {
         id,
       },
@@ -41,7 +41,7 @@ export class TransactionsRepository implements ITransactionsRepository {
   }
 
   async delete(id: string) {
-    return await prisma.transactions.delete({
+    return await prisma.transaction.delete({
       where: {
         id,
       },

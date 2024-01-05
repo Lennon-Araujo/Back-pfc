@@ -1,14 +1,14 @@
-import { Transactions } from '@prisma/client'
 import { UpdateTransactionDto } from '../dtos/update-transaction-dto'
 import { CreateTransactionDto } from '../dtos/create-transaction-dto'
+import { Transaction } from '@prisma/client'
 
 export interface ITransactionsRepository {
-  create(data: CreateTransactionDto): Promise<Transactions>
-  findAll(): Promise<Transactions[]>
-  findById(id: string): Promise<Transactions | null>
+  create(data: CreateTransactionDto): Promise<Transaction>
+  findAll(): Promise<Transaction[]>
+  findById(id: string): Promise<Transaction | null>
   update(
     id: string,
     updateTransactionDto: UpdateTransactionDto,
-  ): Promise<Transactions>
-  delete(id: string): Promise<Transactions>
+  ): Promise<Transaction>
+  delete(id: string): Promise<Transaction>
 }

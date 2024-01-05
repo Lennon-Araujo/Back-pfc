@@ -1,8 +1,8 @@
 import { z } from 'zod'
-import { TransactionsRepository } from '../repositories/prisma/transactions-repository'
-import { CreateTransactionUseCase } from '../use-cases/create-transaction'
+import { CreateTransactionsUseCase } from '../use-cases/create-transaction'
 import { Request, Response } from 'express'
 import { CategoriesRepository } from '@/modules/category/repositories/prisma/categories-repository'
+import { TransactionsRepository } from '../repositories/prisma/transactions-repository'
 
 export class CreateTransactionsController {
   async handle(req: Request, res: Response): Promise<Response> {
@@ -18,12 +18,12 @@ export class CreateTransactionsController {
 
     const transactionsRepository = new TransactionsRepository()
     const categoriesRepository = new CategoriesRepository()
-    const createTransactionUseCase = new CreateTransactionUseCase(
+    const createTransactionsUseCase = new CreateTransactionsUseCase(
       transactionsRepository,
       categoriesRepository,
     )
 
-    await createTransactionUseCase.execute(data)
+    await createTransactionsUseCase.execute(data)
 
     return res.status(201).send()
   }
