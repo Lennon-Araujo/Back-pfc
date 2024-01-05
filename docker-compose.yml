@@ -1,14 +1,17 @@
 version: '3'
 
 services:
-  pg:
-    image: bitnami/postgresql
-    ports:
-      - 5432:5432
-    environment:
-      - POSTGRESQL_USERNAME=docker
-      - POSTGRESQL_PASSWORD=docker
-      - POSTGRESQL_DATABASE=dbfpc
+  # db:
+  #   image: mysql
+  #   ports:
+  #     - 3306:3306
+  #   restart: always
+  #   command: --default-authentication-plugin=caching_sha2_password
+  #   environment:
+  #     - MYSQL_ROOT_PASSWORD=rootpass
+  #     - MYSQL_USER=docker
+  #     - MYSQL_PASSWORD=docker
+  #     - MYSQL_DATABASE=dbfpc
 
   app:
     build:
