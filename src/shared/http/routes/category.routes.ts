@@ -4,6 +4,7 @@ import { GetAllCategoriesController } from '@/modules/category/controllers/get-a
 import { GetByIdCategoryController } from '@/modules/category/controllers/get-by-id'
 import { UpdateCategoriesController } from '@/modules/category/controllers/update'
 import { Router } from 'express'
+import { ensureAuthenticated } from '../middlewares/ensure-authenticated'
 
 export const categoriesRoutes = Router()
 
@@ -13,7 +14,11 @@ const getByIdCategoryController = new GetByIdCategoryController()
 const updateCategoriesController = new UpdateCategoriesController()
 const deleteCategoryController = new DeleteCategoryController()
 
-categoriesRoutes.get('/', getAllCategoriesController.handle)
+categoriesRoutes.get(
+  '/',
+  ensureAuthenticated,
+  getAllCategoriesController.handle,
+)
 categoriesRoutes.get('/:id', getByIdCategoryController.handle)
 categoriesRoutes.post('/', createCategoriesController.handle)
 categoriesRoutes.patch('/:id', updateCategoriesController.handle)
