@@ -9,3 +9,12 @@ services:
       - POSTGRESQL_USERNAME=docker
       - POSTGRESQL_PASSWORD=docker
       - POSTGRESQL_DATABASE=dbfpc
+
+  app:
+    build:
+      dockerfile: ./Dockerfile
+      context: .
+    ports:
+      - 3333:3333
+    volumes:
+      - .:/home/node/app
