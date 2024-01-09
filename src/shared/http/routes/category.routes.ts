@@ -19,7 +19,23 @@ categoriesRoutes.get(
   ensureAuthenticated,
   getAllCategoriesController.handle,
 )
-categoriesRoutes.get('/:id', getByIdCategoryController.handle)
-categoriesRoutes.post('/', createCategoriesController.handle)
-categoriesRoutes.patch('/:id', updateCategoriesController.handle)
-categoriesRoutes.delete('/:id', deleteCategoryController.handle)
+categoriesRoutes.get(
+  '/:id',
+  ensureAuthenticated,
+  getByIdCategoryController.handle,
+)
+categoriesRoutes.post(
+  '/',
+  ensureAuthenticated,
+  createCategoriesController.handle,
+)
+categoriesRoutes.patch(
+  '/:id',
+  ensureAuthenticated,
+  updateCategoriesController.handle,
+)
+categoriesRoutes.delete(
+  '/:id',
+  ensureAuthenticated,
+  deleteCategoryController.handle,
+)
