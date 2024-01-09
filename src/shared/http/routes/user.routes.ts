@@ -5,4 +5,4 @@ export const usersRoutes = Router()
 
 const registerController = new RegisterController()
 
-usersRoutes.post('/', registerController.handle)
+usersRoutes.post('/register', registerController.handle)
