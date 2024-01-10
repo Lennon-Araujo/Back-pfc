@@ -7,8 +7,14 @@ import cors from 'cors'
 import cookieParser from 'cookie-parser'
 
 const app = express()
+
+const corsOptions = {
+  origin: true,
+  credentials: true,
+}
+
+app.use(cors(corsOptions))
 app.use(cookieParser())
-app.use(cors())
 app.use(express.json())
 app.use(router)
 
