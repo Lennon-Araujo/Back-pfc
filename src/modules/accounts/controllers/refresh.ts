@@ -16,8 +16,9 @@ export class RefreshTokenController {
 
     res.cookie('refreshToken', newRefreshToken.refreshToken, {
       path: '/',
-      sameSite: 'lax',
-      httpOnly: false,
+      sameSite: 'none',
+      secure: true,
+      httpOnly: true,
       maxAge: auth.expiresRefreshTokenCookie,
     })
 
