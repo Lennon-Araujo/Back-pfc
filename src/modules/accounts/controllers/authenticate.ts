@@ -21,8 +21,9 @@ class AuthenticateUserController {
 
     res.cookie('refreshToken', refresh_token, {
       path: '/',
-      sameSite: 'lax',
-      httpOnly: false,
+      sameSite: 'none',
+      secure: true,
+      httpOnly: true,
       maxAge: auth.expiresRefreshTokenCookie,
     })
 
