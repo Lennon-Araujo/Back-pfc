@@ -31,23 +31,28 @@ model Transaction {
   created_at DateTime              @default(now())
   updated_at DateTime              @updatedAt
   users      TransactionsOnUsers[]
+
+  @@index([categoryId], name: "idx_categoryId")
 }
 
 model User {
-  id           String                @id @default(uuid())
-  name         String
-  password     String
-  email        String                @unique
-  created_at   DateTime              @default(now())
-  updated_at   DateTime              @updatedAt
-  transactions TransactionsOnUsers[]
+  id            String                @id @default(uuid())
+  name          String
+  password      String
+  email         String                @unique
+  created_at    DateTime              @default(now())
+  updated_at    DateTime              @updatedAt
+  transactions  TransactionsOnUsers[]
+  transactionId String?
 }
 
 model TransactionsOnUsers {
-  transactions   Transaction @relation(fields: [transactionsId], references: [id])
-  transactionsId String
-  users          User        @relation(fields: [usersId], references: [id])
-  usersId        String
+  transaction   Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+  transactionId String
+  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId        String
 
-  @@id([usersId, transactionsId])
+  @@id([userId, transactionId])
+  @@index([userId], name: "idx_userId")
+  @@index([transactionId], name: "idx_transactionId")
 }

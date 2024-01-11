@@ -1,23 +1,23 @@
 version: '3'
 
 services:
-  # db:
-  #   image: mysql
-  #   ports:
-  #     - 3306:3306
-  #   restart: always
-  #   command: --default-authentication-plugin=caching_sha2_password
-  #   environment:
-  #     - MYSQL_ROOT_PASSWORD=rootpass
-  #     - MYSQL_USER=docker
-  #     - MYSQL_PASSWORD=docker
-  #     - MYSQL_DATABASE=dbfpc
-
-  app:
-    build:
-      dockerfile: ./Dockerfile
-      context: .
+  db:
+    image: mysql
     ports:
-      - 3333:3333
-    volumes:
-      - .:/home/node/app
+      - 3306:3306
+    restart: always
+    command: --default-authentication-plugin=caching_sha2_password
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpass
+      - MYSQL_USER=docker
+      - MYSQL_PASSWORD=docker
+      - MYSQL_DATABASE=dbfpc
+
+  # app:
+  #   build:
+  #     dockerfile: ./Dockerfile
+  #     context: .
+  #   ports:
+  #     - 3333:3333
+  #   volumes:
+  #     - .:/home/node/app

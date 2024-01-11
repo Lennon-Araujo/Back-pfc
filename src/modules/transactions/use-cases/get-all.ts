@@ -3,7 +3,7 @@ import { ITransactionsRepository } from '../repositories/itransactions-repositor
 export class GetAllTransactionsUseCase {
   constructor(private transactionsRepository: ITransactionsRepository) {}
 
-  async execute() {
-    return await this.transactionsRepository.findAll()
+  async execute(userId: string) {
+    return await this.transactionsRepository.findAll(userId)
   }
 }

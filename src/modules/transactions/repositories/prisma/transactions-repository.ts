@@ -12,10 +12,19 @@ export class TransactionsRepository implements ITransactionsRepository {
     return transaction
   }
 
-  async findAll() {
+  async findAll(userId: string) {
     return await prisma.transaction.findMany({
       orderBy: {
         created_at: 'asc',
+      },
+      where: {
+        users: {
+          some: {
+            userId: {
+              in: [userId],
+            },
+          },
+        },
       },
     })
   }

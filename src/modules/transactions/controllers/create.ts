@@ -3,10 +3,11 @@ import { CreateTransactionsUseCase } from '../use-cases/create-transaction'
 import { Request, Response } from 'express'
 import { CategoriesRepository } from '@/modules/category/repositories/prisma/categories-repository'
 import { TransactionsRepository } from '../repositories/prisma/transactions-repository'
+import { TransactionsOnUsersRepository } from '../repositories/prisma/transactions-on-users-repository'
 
 export class CreateTransactionsController {
   async handle(req: Request, res: Response): Promise<Response> {
-    const registerBodySchema = z.object({
+    const createTransactionBodySchema = z.object({
       name: z.string(),
       categoryId: z.string().uuid(),
       when: z.coerce.date(),
@@ -14,16 +15,19 @@ export class CreateTransactionsController {
       shared: z.boolean(),
     })
 
-    const data = registerBodySchema.parse(req.body)
+    const createTransactionBody = createTransactionBodySchema.parse(req.body)
+    const { id: userId } = req.user
 
     const transactionsRepository = new TransactionsRepository()
     const categoriesRepository = new CategoriesRepository()
+    const transactionsOnUsersRepository = new TransactionsOnUsersRepository()
     const createTransactionsUseCase = new CreateTransactionsUseCase(
       transactionsRepository,
       categoriesRepository,
+      transactionsOnUsersRepository,
     )
 
-    await createTransactionsUseCase.execute(data)
+    await createTransactionsUseCase.execute(createTransactionBody, userId)
 
     return res.status(201).send()
   }

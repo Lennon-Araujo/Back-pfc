@@ -4,7 +4,7 @@ import { Transaction } from '@prisma/client'
 
 export interface ITransactionsRepository {
   create(data: CreateTransactionDto): Promise<Transaction>
-  findAll(): Promise<Transaction[]>
+  findAll(userId: string): Promise<Transaction[]>
   findById(id: string): Promise<Transaction | null>
   update(
     id: string,
