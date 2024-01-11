@@ -44,6 +44,7 @@ model User {
   updated_at    DateTime              @updatedAt
   transactions  TransactionsOnUsers[]
   transactionId String?
+  sharedWith    Shared[]
 }
 
 model TransactionsOnUsers {
@@ -55,4 +56,13 @@ model TransactionsOnUsers {
   @@id([userId, transactionId])
   @@index([userId], name: "idx_userId")
   @@index([transactionId], name: "idx_transactionId")
+}
+
+model Shared {
+  id     String @id @default(uuid())
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+  email  String @unique
+
+  @@index([userId], name: "idx_userIdShared")
 }

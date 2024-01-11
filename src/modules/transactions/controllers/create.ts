@@ -4,6 +4,9 @@ import { Request, Response } from 'express'
 import { CategoriesRepository } from '@/modules/category/repositories/prisma/categories-repository'
 import { TransactionsRepository } from '../repositories/prisma/transactions-repository'
 import { TransactionsOnUsersRepository } from '../repositories/prisma/transactions-on-users-repository'
+import { CreateSharedTransactionUseCase } from '../use-cases/create-shared-transaction'
+import { UsersRepository } from '@/modules/accounts/repositories/prisma/users-repository'
+import { SharedRepository } from '@/modules/accounts/repositories/prisma/shared-repository'
 
 export class CreateTransactionsController {
   async handle(req: Request, res: Response): Promise<Response> {
@@ -27,7 +30,21 @@ export class CreateTransactionsController {
       transactionsOnUsersRepository,
     )
 
-    await createTransactionsUseCase.execute(createTransactionBody, userId)
+    const transaction = await createTransactionsUseCase.execute(
+      createTransactionBody,
+      userId,
+    )
+
+    if (transaction.shared) {
+      const sharedRepository = new SharedRepository()
+      const usersRepository = new UsersRepository()
+      const createSharedTransactionUseCase = new CreateSharedTransactionUseCase(
+        transactionsOnUsersRepository,
+        usersRepository,
+        sharedRepository,
+      )
+      await createSharedTransactionUseCase.execute(transaction.id, userId)
+    }
 
     return res.status(201).send()
   }
