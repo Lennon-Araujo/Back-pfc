@@ -44,6 +44,10 @@ export class GetAllUserCategoriesController {
       return false
     })
 
-    return res.json(categories)
+    const sortedByName = Array.from(categories).sort((a, b) => {
+      return a.name.localeCompare(b.name, 'pt-BR')
+    })
+
+    return res.json(sortedByName)
   }
 }

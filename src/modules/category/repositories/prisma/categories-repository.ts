@@ -14,7 +14,7 @@ export class CategoriesRepository implements ICategoriesRepository {
   async getAll() {
     return await prisma.category.findMany({
       orderBy: {
-        created_at: 'asc',
+        name: 'asc',
       },
       include: {
         transactions: true,
@@ -28,7 +28,7 @@ export class CategoriesRepository implements ICategoriesRepository {
         userId,
       },
       orderBy: {
-        created_at: 'asc',
+        name: 'asc',
       },
       include: {
         transactions: true,
@@ -50,6 +50,9 @@ export class CategoriesRepository implements ICategoriesRepository {
             },
           },
         },
+      },
+      orderBy: {
+        name: 'asc',
       },
     })
   }
