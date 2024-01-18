@@ -10,11 +10,12 @@ export class CreateCategoriesController {
     })
 
     const { name } = registerBodySchema.parse(req.body)
+    const { id: userId } = req.user
 
     const categoryRepository = new CategoriesRepository()
     const createCategoryUseCase = new CreateCategoryUseCase(categoryRepository)
 
-    await createCategoryUseCase.execute(name)
+    await createCategoryUseCase.execute(name, userId)
 
     return res.status(201).send()
   }

@@ -2,21 +2,54 @@ import { prisma } from '@/lib/prisma'
 import { ICategoriesRepository } from '../icategories-repository'
 
 export class CategoriesRepository implements ICategoriesRepository {
-  async create(name: string) {
+  async create(name: string, userId: string) {
     await prisma.category.create({
       data: {
         name,
+        userId,
       },
     })
   }
 
   async getAll() {
-    return prisma.category.findMany({
+    return await prisma.category.findMany({
       orderBy: {
         created_at: 'asc',
       },
       include: {
         transactions: true,
+      },
+    })
+  }
+
+  async getByUser(userId: string) {
+    return await prisma.category.findMany({
+      where: {
+        userId,
+      },
+      orderBy: {
+        created_at: 'asc',
+      },
+      include: {
+        transactions: true,
+      },
+    })
+  }
+
+  async getBySharedTransaction(userId: string) {
+    return await prisma.category.findMany({
+      where: {
+        transactions: {
+          some: {
+            users: {
+              some: {
+                userId: {
+                  in: [userId],
+                },
+              },
+            },
+          },
+        },
       },
     })
   }
@@ -34,10 +67,13 @@ export class CategoriesRepository implements ICategoriesRepository {
     return category
   }
 
-  async findByName(name: string) {
+  async findByName(name: string, userId: string) {
     const category = await prisma.category.findUnique({
       where: {
-        name,
+        name_userId: {
+          name,
+          userId,
+        },
       },
     })
 
@@ -56,7 +92,7 @@ export class CategoriesRepository implements ICategoriesRepository {
   }
 
   async delete(id: string) {
-    return prisma.category.delete({
+    return await prisma.category.delete({
       where: {
         id,
       },
