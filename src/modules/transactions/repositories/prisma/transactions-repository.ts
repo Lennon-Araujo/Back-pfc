@@ -15,7 +15,7 @@ export class TransactionsRepository implements ITransactionsRepository {
   async findAll(userId: string) {
     return await prisma.transaction.findMany({
       orderBy: {
-        when: 'asc',
+        when: 'desc',
       },
       where: {
         users: {
