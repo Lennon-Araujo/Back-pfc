@@ -5,11 +5,15 @@ import { AppError } from './shared/errors/AppError'
 import { ZodError } from 'zod'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
+import { env } from './env'
 
 const app = express()
 
 const corsOptions = {
-  origin: true,
+  origin:
+    env.NODE_ENV === 'dev'
+      ? 'http://localhost:5173'
+      : 'https://finance-front-jet.vercel.app',
   credentials: true,
 }
 
