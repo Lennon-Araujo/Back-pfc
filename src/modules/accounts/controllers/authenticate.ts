@@ -2,7 +2,6 @@ import { Request, Response } from 'express'
 import { AuthenticateUserUseCase } from '../use-cases/authenticate'
 import { UsersRepository } from '../repositories/prisma/users-repository'
 import { z } from 'zod'
-import auth from '@/config/auth'
 
 class AuthenticateUserController {
   async handle(req: Request, res: Response): Promise<Response> {
@@ -16,19 +15,13 @@ class AuthenticateUserController {
     const usersRepository = new UsersRepository()
     const authenticateUserUseCase = new AuthenticateUserUseCase(usersRepository)
 
-    const { user, token, refresh_token } =
-      await authenticateUserUseCase.execute({ email, password })
-
-    res.cookie('refreshToken', refresh_token, {
-      path: '/',
-      sameSite: 'none',
-      secure: true,
-      httpOnly: true,
-      maxAge: auth.expiresRefreshTokenCookie,
-    })
+    const { user, token, refreshToken } = await authenticateUserUseCase.execute(
+      { email, password },
+    )
 
     return res.json({
       token,
+      refreshToken,
       user,
     })
   }

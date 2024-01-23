@@ -1,23 +1,19 @@
 import { Request, Response } from 'express'
 import { UsersRepository } from '../repositories/prisma/users-repository'
 import { LogoutUseCase } from '../use-cases/logout'
+import { z } from 'zod'
 
 export class LogoutController {
   async handle(req: Request, res: Response): Promise<Response> {
-    const cookies = req.cookies
+    const LogoutBodySchema = z.object({
+      refreshToken: z.string(),
+    })
 
+    const { refreshToken } = LogoutBodySchema.parse(req.body)
     const usersRepository = new UsersRepository()
     const logoutUseCase = new LogoutUseCase(usersRepository)
 
-    const newRefreshToken = await logoutUseCase.execute(cookies.refreshToken)
-
-    res.cookie('refreshToken', newRefreshToken.refreshToken, {
-      path: '/',
-      sameSite: 'none',
-      secure: true,
-      httpOnly: true,
-      maxAge: 0,
-    })
+    await logoutUseCase.execute(refreshToken)
 
     return res.status(204).send()
   }

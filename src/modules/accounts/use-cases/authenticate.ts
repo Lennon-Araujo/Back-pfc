@@ -16,7 +16,7 @@ interface IResponse {
     email: string
   }
   token: string
-  refresh_token: string
+  refreshToken: string
 }
 
 export class AuthenticateUserUseCase {
@@ -47,7 +47,7 @@ export class AuthenticateUserUseCase {
       expiresIn: expiresInToken,
     })
 
-    const refresh_token = sign({}, secret_refresh_token!, {
+    const refreshToken = sign({}, secret_refresh_token!, {
       subject: user.id,
       expiresIn: expiresInRefreshToken,
     })
@@ -58,7 +58,7 @@ export class AuthenticateUserUseCase {
         name: user.name,
         email: user.email,
       },
-      refresh_token,
+      refreshToken,
     }
 
     return {
