@@ -2,6 +2,7 @@ import { prisma } from '@/lib/prisma'
 import { CreateTransactionDto } from '../../dtos/create-transaction-dto'
 import { UpdateTransactionDto } from '../../dtos/update-transaction-dto'
 import { ITransactionsRepository } from '../itransactions-repository'
+import { GetAllTransactionsUseCaseRequest } from '../../use-cases/get-all'
 
 export class TransactionsRepository implements ITransactionsRepository {
   async create(data: CreateTransactionDto) {
@@ -12,7 +13,7 @@ export class TransactionsRepository implements ITransactionsRepository {
     return transaction
   }
 
-  async findAll(userId: string) {
+  async findAll({ userId, query }: GetAllTransactionsUseCaseRequest) {
     return await prisma.transaction.findMany({
       orderBy: {
         when: 'desc',
@@ -23,6 +24,12 @@ export class TransactionsRepository implements ITransactionsRepository {
             userId: {
               in: [userId],
             },
+          },
+        },
+        AND: {
+          when: {
+            gte: query.from,
+            lte: query.to,
           },
         },
       },
