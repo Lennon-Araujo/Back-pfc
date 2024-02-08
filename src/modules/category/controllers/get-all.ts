@@ -1,15 +1,15 @@
 import { Request, Response } from 'express'
 import { CategoriesRepository } from '../repositories/prisma/categories-repository'
-import { GetAllCategoriesUseCase } from '../use-cases/get-all'
+import { FindManyCategoriesUseCase } from '../use-cases/find-many'
 
 export class GetAllCategoriesController {
   async handle(req: Request, res: Response): Promise<Response> {
     const categoryRepository = new CategoriesRepository()
-    const getAllCategoriesUseCase = new GetAllCategoriesUseCase(
+    const findManyCategoriesUseCase = new FindManyCategoriesUseCase(
       categoryRepository,
     )
 
-    const categories = await getAllCategoriesUseCase.execute()
+    const categories = await findManyCategoriesUseCase.execute()
 
     return res.json(categories)
   }

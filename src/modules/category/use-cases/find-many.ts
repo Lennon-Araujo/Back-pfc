@@ -1,6 +1,6 @@
 import { ICategoriesRepository } from '../repositories/icategories-repository'
 
-export class GetAllCategoriesUseCase {
+export class FindManyCategoriesUseCase {
   constructor(private categoryRepository: ICategoriesRepository) {}
 
   async execute() {
