@@ -1,8 +1,8 @@
 import { AuthenticateUserController } from '@/modules/accounts/controllers/authenticate'
 import { LogoutController } from '@/modules/accounts/controllers/logout'
-import { RefreshTokenController } from '@/modules/accounts/controllers/refresh'
 import { Router } from 'express'
 import { ensureAuthenticated } from '../middlewares/ensure-authenticated'
+import { RefreshTokenController } from '@/modules/accounts/controllers/refresh-token'
 
 export const authRoutes = Router()
 

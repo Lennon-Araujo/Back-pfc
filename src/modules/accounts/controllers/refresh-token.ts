@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { RefreshTokenUseCase } from '../use-cases/refresh'
+import { RefreshTokenUseCase } from '../use-cases/refresh-token'
 import { UsersRepository } from '../repositories/prisma/users-repository'
 import { z } from 'zod'
 
