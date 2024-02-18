@@ -16,6 +16,19 @@ export class GetAllTransactionsUseCase {
       throw new AppError('Invalid query', 422)
     }
 
-    return await this.transactionsRepository.findAll({ userId, query })
+    const summaries = await this.transactionsRepository.getSummary({
+      userId,
+      query,
+    })
+
+    const transactions = await this.transactionsRepository.findAll({
+      userId,
+      query,
+    })
+
+    return {
+      transactions,
+      summaries,
+    }
   }
 }

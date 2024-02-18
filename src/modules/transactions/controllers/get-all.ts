@@ -19,11 +19,16 @@ export class GetAllTransactionsController {
       transactionsRepository,
     )
 
-    const transactions = await getAllTransactionsUseCase.execute({
-      userId,
-      query,
-    })
+    const { transactions, summaries } = await getAllTransactionsUseCase.execute(
+      {
+        userId,
+        query,
+      },
+    )
 
-    return res.json(transactions)
+    return res.json({
+      transactions,
+      summaries,
+    })
   }
 }
