@@ -2,6 +2,7 @@ import { User } from '@prisma/client'
 import { CreateUserDTO } from '../../dtos/create-user-dto'
 import { IUsersRepository } from '../iusers-repository'
 import { randomUUID } from 'crypto'
+import { ResetPasswordDTO } from '../../dtos/reset-password-dto'
 
 export class InMemoryUsersRepository implements IUsersRepository {
   users: User[] = []
@@ -34,6 +35,19 @@ export class InMemoryUsersRepository implements IUsersRepository {
   async findById(id: string) {
     const user = this.users.find((user) => user.id === id)
     if (!user) {
+      return null
+    }
+
+    return user
+  }
+
+  async resetPassword({ id, password }: ResetPasswordDTO) {
+    const user = this.users.find((user) => user.id === id)
+
+    if (user) {
+      user.password = password
+      user.updated_at = new Date()
+    } else {
       return null
     }
 

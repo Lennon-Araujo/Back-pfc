@@ -3,7 +3,7 @@ import { AuthenticateUserUseCase } from '../use-cases/authenticate'
 import { UsersRepository } from '../repositories/prisma/users-repository'
 import { z } from 'zod'
 
-class AuthenticateUserController {
+export class AuthenticateUserController {
   async handle(req: Request, res: Response): Promise<Response> {
     const authBodySchema = z.object({
       email: z.string().email(),
@@ -26,5 +26,3 @@ class AuthenticateUserController {
     })
   }
 }
-
-export { AuthenticateUserController }
