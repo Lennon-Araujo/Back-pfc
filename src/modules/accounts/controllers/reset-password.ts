@@ -39,7 +39,7 @@ export class ResetPasswordController {
       if (error instanceof TokenExpiredError) {
         errorMessage = 'Tempo para reset de senha foi expirado!'
       }
-
+      console.error(error)
       return res.status(400).json({
         message: errorMessage,
       })

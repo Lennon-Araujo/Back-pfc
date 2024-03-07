@@ -8,9 +8,10 @@ export class ResetPasswordUseCase {
   constructor(private usersRepository: IUsersRepository) {}
 
   async execute(token: string, password: string): Promise<User | null> {
-    const { SECRET_TOKEN: secret_token } = process.env
+    const { SECRET_FORGOT_PASSWORD_TOKEN: secret_forgot_password_token } =
+      process.env
 
-    const { sub } = verify(token, secret_token!)
+    const { sub } = verify(token, secret_forgot_password_token!)
     const userId = sub?.toString()
 
     if (!userId) {
