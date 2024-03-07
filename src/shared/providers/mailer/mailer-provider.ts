@@ -3,6 +3,5 @@ export interface MailerProvider {
     email: string,
     name: string,
     token: string,
-    templatePath: string,
   ): Promise<void>
 }

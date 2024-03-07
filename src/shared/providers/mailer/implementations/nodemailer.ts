@@ -1,5 +1,3 @@
-import fs from 'node:fs'
-import handlebars from 'handlebars'
 import nodemailer from 'nodemailer'
 import dotenv from 'dotenv'
 import { MailerProvider } from '../mailer-provider'
@@ -8,12 +6,7 @@ import { AppError } from '@/shared/errors/AppError'
 dotenv.config()
 
 export class NodeMailer implements MailerProvider {
-  async sendForgotPasswordEmail(
-    email: string,
-    name: string,
-    token: string,
-    templatePath: string,
-  ) {
+  async sendForgotPasswordEmail(email: string, name: string, token: string) {
     const mailerUser = process.env.MAILER_USER
     const mailerPass = process.env.MAILER_PASS
     const mailerHost = process.env.MAILER_HOST
@@ -35,17 +28,81 @@ export class NodeMailer implements MailerProvider {
       },
     })
 
-    const templateFileContent = fs.readFileSync(templatePath).toString('utf-8')
-    const templateParse = handlebars.compile(templateFileContent)
+    // const templateFileContent = fs.readFileSync(templatePath).toString('utf-8')
+    // const templateParse = handlebars.compile(templateFileContent)
 
-    const templateHTML = templateParse({ name, link })
+    // const templateHTML = templateParse({ name, link })
 
     transport.sendMail(
       {
         to: email,
         subject: 'Recuperação de Senha - Finance',
         from: mailerUser,
-        html: templateHTML,
+        html: `
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+          <meta charset="UTF-8">
+          <style>
+            .container {
+              width: 800px;
+              font-family: Arial, Helvetica, sans-serif;
+              align-items: left;
+              justify-content: left;
+              font-size: 12px;
+            }
+
+            span {
+              display: block;
+              margin: 10px;
+            }
+
+            span.footer {
+              font-size: 10px;
+            }
+
+            button {
+              margin: 10px;
+              padding: 8px;
+              background-color: #ffaa00;
+              color: #352356;
+              border-radius: 4px;
+            }
+
+            a {
+              text-decoration: none;
+              color: #352356;
+            }
+
+          </style>
+        </head>
+        <body>
+        <div class="container">
+          <span>Oi, ${name}</span>
+
+          <br>
+
+          <span>
+            Você solicitou a troca da senha de acesso ao Finance - Personal Control.
+            <br>
+            Para trocar é bem simples, basta clicar no botão abaixo e escolher sua nova senha de acesso!
+          </span>
+          <button type="button">
+            <a href="${link}">Redefinir Senha</a>
+          </button>
+
+          <span class="footer">
+            <strong>Atenção! Este acesso expira em 10 minutos.</strong><br>
+              Caso você tenha visto esse e-mail e/ou tenha acessado após este prazo, solicite uma nova redefinição de senha.
+          </span>
+
+          <span class="footer">
+            <strong>Muito obrigado, Equipe Finance</strong>
+          </span>
+        </div>
+        </body>
+        </html>
+        `,
       },
       (error, info) => {
         if (error) {

@@ -22,6 +22,7 @@ export class ForgotPasswordController {
         message: defaultResponseMessage,
       })
     } catch (error) {
+      console.error(error)
       if (error instanceof AppError) {
         return res.status(200).json({
           message: defaultResponseMessage,
