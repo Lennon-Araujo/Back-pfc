@@ -93,7 +93,8 @@ export class NodeMailer implements MailerProvider {
 
           <span>
             Se o botão acima não funcionar, copie o link abaixo e cole em seu navegador:
-            <a href="">${link}</a>
+            <br>
+            <a href="${link}">${link}</a>
           </span>
 
           <span class="footer">
