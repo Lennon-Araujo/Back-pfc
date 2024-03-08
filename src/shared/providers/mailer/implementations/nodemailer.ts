@@ -91,6 +91,11 @@ export class NodeMailer implements MailerProvider {
             <a href="${link}">Redefinir Senha</a>
           </button>
 
+          <span>
+            Se o botão acima não funcionar, copie o link abaixo e cole em seu navegador:
+            <a href="">${link}</a>
+          </span>
+
           <span class="footer">
             <strong>Atenção! Este acesso expira em 10 minutos.</strong><br>
               Caso você tenha visto esse e-mail e/ou tenha acessado após este prazo, solicite uma nova redefinição de senha.
