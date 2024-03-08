@@ -30,7 +30,7 @@ export class GetAllUserCategoriesController {
     }
 
     if (!allCategories.length) {
-      return res.status(404).json({
+      return res.status(400).json({
         message: "I didn't find any categories. Please create one!",
       })
     }
